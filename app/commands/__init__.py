@@ -1,10 +1,12 @@
+# app/commands/__init__.py
 from app.commands.operations import Operations
 from app.commands.history import HistoryManager
 
 class CommandHandler:
     def __init__(self):
         self.operations = Operations()
-        self.history_manager = HistoryManager("data/account.csv", self.operations)  # Pass the operations object
+        # Only pass the filename to HistoryManager
+        self.history_manager = HistoryManager("data/account.csv")  # Pass only the filename
 
     def execute_operation(self, operation_name, *args):
         """Execute a mathematical operation and return the result."""
