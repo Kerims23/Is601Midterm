@@ -1,26 +1,36 @@
-from abc import ABC, abstractmethod
-
-class Command(ABC):
-    @abstractmethod
-    def execute(self):
-        pass
+from app.commands.operations import Operations
+from app.commands.history import HistoryManager
 
 class CommandHandler:
     def __init__(self):
-        self.commands = {}
+        self.operations = Operations()
+        self.history_manager = HistoryManager("data/account.csv", self.operations)  # Pass the operations object
 
-    def register_command(self, command_name: str, command: Command):
-        self.commands[command_name] = command
-
-    def execute_command(self, command_name: str):
-        """ Look before you leap (LBYL) - Use when its less likely to work
-        if command_name in self.commands:
-            self.commands[command_name].execute()
+    def execute_operation(self, operation_name, *args):
+        """Execute a mathematical operation and return the result."""
+        if operation_name == "add":
+            return self.operations.add(*args)
+        elif operation_name == "subtract":
+            return self.operations.subtract(*args)
+        elif operation_name == "multiply":
+            return self.operations.multiply(*args)
+        elif operation_name == "divide":
+            return self.operations.divide(*args)
         else:
-            print(f"No such command: {command_name}")
-        """
-        """Easier to ask for forgiveness than permission (EAFP) - Use when its going to most likely work"""
-        try:
-            self.commands[command_name].execute()
-        except KeyError:
-            print(f"No such command: {command_name}")
+            raise ValueError(f"Unknown operation: {operation_name}")
+
+    def save_history(self, data):  # Accept data to be saved
+        """Save operation results to CSV."""
+        self.history_manager.save(data)  # Pass data to history manager
+
+    def load_history(self):
+        """Load history from CSV."""
+        return self.history_manager.load()
+
+    def delete_history(self, index):
+        """Delete a specific entry from history."""
+        self.history_manager.delete(index)
+
+    def clear_history(self):
+        """Clear all entries from history."""
+        self.history_manager.clear()
