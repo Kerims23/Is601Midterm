@@ -65,3 +65,4 @@ class HistoryManager:
                 print("History file deleted.")
             else:
                 print("No history file found to delete.")
+                
