@@ -1,7 +1,7 @@
 '''repl.py'''
 import logging
-from calculator.operations import add, subtract, multiply, divide
-from calculator.history import HistoryManager
+from app.operations import add, subtract, multiply, divide
+from app.history import HistoryManager
 
 class CalculatorREPL:
     def __init__(self):
