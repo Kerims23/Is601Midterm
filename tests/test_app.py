@@ -167,8 +167,11 @@ def test_save_history_without_result(app_fixture, capfd):
 
 def test_environment_variable():
     """Test if the correct environment is loaded."""
+    # Explicitly specify the .env file path
+    env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
     # Load the .env file
-    load_dotenv()
-
+    load_dotenv(env_path)
+    # Print to check if the variable is loaded
+    print(f"ENVIRONMENT: {os.getenv('ENVIRONMENT')}")
     # Assert that the ENVIRONMENT variable is set to "development"
     assert os.getenv("ENVIRONMENT") == "development"
