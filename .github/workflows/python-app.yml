@@ -1,20 +1,16 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
-name: Python application
+name: Python Applications
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 permissions:
   contents: read
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -28,7 +24,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest pytest-cov  # Include pytest-cov for coverage reporting
+        pip install flake8 pytest pytest-cov python-dotenv  # Include all necessary packages
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Debug
@@ -38,6 +34,12 @@ jobs:
         echo "PYTHONPATH:"
         echo $PYTHONPATH
 
-    - name: Test with pytest
+    - name: Test with pytest for Application 1
       run: |
-        pytest --pylint --cov  # Add any specific options you need here
+        echo "Running tests for the main application..."
+        pytest --pylint --cov  # Adjust this line if necessary for specific options
+
+    - name: Test with pytest for Calculator Application
+      run: |
+        echo "Running tests for the Calculator application..."
+        pytest  # Adjust this line if necessary for specific options
