@@ -1,4 +1,4 @@
-# app/commands/__init__.py
+'''app/commands/__init__.py'''
 from app.plugins.operations import Operations
 from app.plugins.history import HistoryManager
 

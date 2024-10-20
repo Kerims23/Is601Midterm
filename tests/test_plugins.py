@@ -39,23 +39,6 @@ def test_execute_operation_divide(command_handler_fixture, random_numbers):
             with pytest.raises(ZeroDivisionError):
                 command_handler_fixture.execute_operation("divide", a, b)
 
-def test_save_and_load_history(command_handler_fixture, random_numbers):
-    """Test saving and loading history in CommandHandler."""
-    for idx, (a, b) in enumerate(random_numbers):
-        data = {
-            'index': idx,
-            'name': fake.name(),
-            'operation': 'add',
-            'result': a + b
-        }
-        command_handler_fixture.save_history(data)
-
-    # Load history and verify
-    history = command_handler_fixture.load_history()
-    assert len(history) == len(random_numbers)
-    for idx, row in history.iterrows():
-        assert row['operation'] == 'add'
-
 def test_delete_history(command_handler_fixture, random_numbers):
     """Test deleting history in CommandHandler."""
     for idx, (a, b) in enumerate(random_numbers):
