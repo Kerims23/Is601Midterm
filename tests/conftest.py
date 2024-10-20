@@ -1,10 +1,19 @@
 '''tests/conftest.py'''
+import os
 from faker import Faker
 import pytest
 
 fake = Faker()
-# this is to stop the error
+
+# This is to stop the error
 # pylint: disable=redefined-outer-name
+
+@pytest.fixture(scope='session', autouse=True)
+def setup_data_directory():
+    """Ensure the data directory exists before running tests."""
+    if not os.path.exists('data'):
+        os.makedirs('data')
+
 @pytest.fixture
 def random_numbers(num_records):
     """Fixture to generate a list of random (a, b) number tuples."""
