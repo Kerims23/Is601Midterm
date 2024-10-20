@@ -9,6 +9,7 @@ from app.plugins import CommandHandler
 load_dotenv()
 
 # Get log level and file path from environment variables
+ENVIRONMENT = os.getenv("ENVIRONMENT", "production") 
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 LOG_FILE = os.getenv("LOG_FILE", "logs/app.log")
 

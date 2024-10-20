@@ -163,3 +163,7 @@ def test_save_history_without_result(app_fixture, capfd):
         "No results to save. Please perform an operation first.\n"
     )
     assert captured.out == expected_output
+
+def test_environment_variable():
+    """Test if the correct environment is loaded."""
+    assert os.getenv("ENVIRONMENT") == "development"
