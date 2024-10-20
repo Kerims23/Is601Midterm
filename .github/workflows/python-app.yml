@@ -42,4 +42,4 @@ jobs:
     - name: Test with pytest for Calculator Application
       run: |
         echo "Running tests for the Calculator application..."
-        pytest  # Adjust this line if necessary for specific options
+        pytest --num_records=10  # Adjust this line if necessary for specific options

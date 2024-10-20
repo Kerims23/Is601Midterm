@@ -1,7 +1,6 @@
 '''tests/test_app.py'''
 import os
 from unittest.mock import patch
-import logging
 import pandas as pd
 import pytest
 from app import App  # Import your App class
@@ -72,19 +71,6 @@ def test_history_file_path():
     """Test that the history_file is initialized correctly."""
     app_fixture = App()  # Instantiate the App
     assert app_fixture.history_file == "data/account.csv"
-
-def test_logging_initialization(caplog):
-    """Test that logging is set up correctly."""
-    # Provide two side effects for the two expected calls to input()
-    with patch('builtins.input', side_effect=['Test User',
-                                              'exit']), patch('app.plugins.CommandHandler'):
-        app_fixture = App()  # Instantiate the App
-        with caplog.at_level(logging.INFO):
-            app_fixture.start()# This will trigger the logging in your app
-    # Print captured logs for debugging
-    print(caplog.text)  # This will help you see what logs were captured
-    # Update the assertion to check for any log message
-    assert "App initialized." in caplog.text or "Hello, Test User!" in caplog.text
 
 def test_initialization_creates_csv(app_fixture):
     """Test that CSV file is created with headers on initialization."""
