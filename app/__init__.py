@@ -1,7 +1,7 @@
 import logging
 import os
 import pandas as pd
-from app.commands import CommandHandler
+from app.plugins import CommandHandler
 
 class App:
     def __init__(self):

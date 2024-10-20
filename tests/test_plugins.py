@@ -1,11 +1,11 @@
 '''tests/test_commands.py'''
-# tests/test_command_handler.py
 import pytest
-from app.commands import CommandHandler
 from faker import Faker
+from app.plugins import CommandHandler
 
 fake = Faker()
-
+# this is to stop the error
+# pylint: disable=redefined-outer-name
 @pytest.fixture
 def command_handler_fixture():
     """Fixture for the CommandHandler."""

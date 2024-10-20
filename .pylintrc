@@ -1,0 +1,6 @@
+[MASTER]
+disable=W0622  # Disable redefined-name warnings
+
+[MESSAGES CONTROL]
+# Disable certain messages
+disable=W0622

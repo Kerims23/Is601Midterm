@@ -1,6 +1,6 @@
 # app/commands/__init__.py
-from app.commands.operations import Operations
-from app.commands.history import HistoryManager
+from app.plugins.operations import Operations
+from app.plugins.history import HistoryManager
 
 class CommandHandler:
     def __init__(self):

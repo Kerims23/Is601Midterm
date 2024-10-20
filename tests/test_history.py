@@ -1,11 +1,11 @@
-# tests/test_history.py
-import pandas as pd
+'''tests/test_history.py'''
 from faker import Faker
 import pytest
-from app.commands.history import HistoryManager
+from app.plugins.history import HistoryManager
 
 fake = Faker()
-
+# this is to stop the error
+# pylint: disable=redefined-outer-name
 @pytest.fixture
 def history_manager_fixture(tmp_path):
     """Fixture for HistoryManager using a temp file."""
@@ -32,7 +32,7 @@ def test_load_empty_file(history_manager_fixture):
     loaded_df = history_manager_fixture.load()
     assert loaded_df.empty
 
-def test_load_empty_existing_file(history_manager_fixture, tmp_path):
+def test_load_empty_existing_file(tmp_path):
     """Test loading from an existing but empty CSV file."""
     empty_file = tmp_path / "empty.csv"
     empty_file.write_text("")  # Create an empty file

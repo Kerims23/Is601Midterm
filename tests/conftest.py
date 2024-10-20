@@ -1,13 +1,15 @@
-# tests/conftest.py
+'''tests/conftest.py'''
 from faker import Faker
 import pytest
 
 fake = Faker()
-
+# this is to stop the error
+# pylint: disable=redefined-outer-name
 @pytest.fixture
 def random_numbers(num_records):
     """Fixture to generate a list of random (a, b) number tuples."""
-    return [(fake.random_int(min=1, max=100), fake.random_int(min=1, max=100)) for _ in range(num_records)]
+    return [(fake.random_int(min=1, max=100), fake.random_int(min=1, max=100))
+            for _ in range(num_records)]
 
 @pytest.fixture
 def num_records(pytestconfig):
@@ -17,13 +19,14 @@ def num_records(pytestconfig):
 def generate_test_data(num_records):
     """Generate test data for operations."""
     for _ in range(num_records):
-        a = fake.random_int(min=1, max=100)  # You can adjust the range as needed
+        a = fake.random_int(min=1, max=100)
         b = fake.random_int(min=1, max=100)
         yield a, b
 
 def pytest_addoption(parser):
     """Add command line options for pytest."""
-    parser.addoption("--num_records", action="store", default=5, type=int, help="Number of test records to generate.")
+    parser.addoption("--num_records", action="store", default=5,
+                     type=int, help="Number of test records to generate.")
 
 def pytest_generate_tests(metafunc):
     """Generate tests dynamically based on the provided fixture names."""

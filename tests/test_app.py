@@ -1,13 +1,13 @@
+'''tests/test_app.py'''
 import pytest
 from app import App  # Import your App class
-
+# this is to stop the error
+# pylint: disable=redefined-outer-name
 @pytest.fixture
 def app_fixture():
     """Fixture to set up the App instance for testing."""
     app = App()  # Instantiate your app
     yield app  # Allow tests to run with this instance
-    # Optionally cleanup if your App has a cleanup method
-    # app.cleanup()
 
 def test_app_initialization(app_fixture):
     """Test that the app initializes correctly."""
@@ -24,7 +24,8 @@ def test_app_operations(app_fixture):
 
 def test_app_history_management(app_fixture):
     """Test the history management of the app."""
-    app_fixture.command_handler.save_history({'index': 0, 'name': 'Test', 'operation': 'add', 'result': 5})
+    app_fixture.command_handler.save_history({'index': 0,
+                                              'name': 'Test', 'operation': 'add', 'result': 5})
 
     history = app_fixture.command_handler.load_history()
     assert len(history) == 1  # Verify the history has one entry
@@ -35,7 +36,8 @@ def test_app_history_management(app_fixture):
 
 def test_app_clear_history(app_fixture):
     """Test the clear history functionality."""
-    app_fixture.command_handler.save_history({'index': 0, 'name': 'Test', 'operation': 'add', 'result': 5})
+    app_fixture.command_handler.save_history({'index': 0,
+                                              'name': 'Test', 'operation': 'add', 'result': 5})
     app_fixture.command_handler.clear_history()  # Clear the history
     history = app_fixture.command_handler.load_history()
     assert history.empty  # Verify history is empty after clearing
