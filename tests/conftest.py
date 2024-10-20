@@ -1,7 +1,6 @@
 # tests/conftest.py
-import pytest
 from faker import Faker
-from app.commands.operations import Operations
+import pytest
 
 fake = Faker()
 
