@@ -4,6 +4,16 @@ import pytest
 
 fake = Faker()
 
+@pytest.fixture
+def random_numbers(num_records):
+    """Fixture to generate a list of random (a, b) number tuples."""
+    return [(fake.random_int(min=1, max=100), fake.random_int(min=1, max=100)) for _ in range(num_records)]
+
+@pytest.fixture
+def num_records(pytestconfig):
+    """Fixture to get num_records value from command-line argument."""
+    return pytestconfig.getoption("num_records")
+
 def generate_test_data(num_records):
     """Generate test data for operations."""
     for _ in range(num_records):

@@ -7,18 +7,17 @@ class HistoryManager:
         self.filename = filename
     
     def save(self, data):
-        """Save operation results to CSV with a blank line at the top."""
-        df = pd.DataFrame([data], columns=['index', 'name', 'operation', 'result'])  # Specify columns
-
-        # Check if the file exists
+        """Save operation results to CSV."""
+        df = pd.DataFrame([data], columns=['index', 'name', 'operation', 'result'])
+        
         file_exists = os.path.exists(self.filename)
         
-        # If the file doesn't exist, create it and write a blank line
+        # If file doesn't exist, create it and append the blank line
         if not file_exists:
             with open(self.filename, mode='w') as file:
-                file.write('\n')  # Write a blank line
+                file.write('\n')
 
-        # Now append the actual data
+        # Append data
         df.to_csv(self.filename, mode='a', index=False, header=not file_exists)
 
     def load(self):
@@ -27,42 +26,38 @@ class HistoryManager:
             try:
                 df = pd.read_csv(self.filename)
                 if df.empty:
-                    print("History is empty.")
                     return pd.DataFrame(columns=['index', 'name', 'operation', 'result'])
-                else:
-                    return df
+                return df
             except pd.errors.EmptyDataError:
-                print("CSV file is empty.")
                 return pd.DataFrame(columns=['index', 'name', 'operation', 'result'])
-        else:
-            print("History is empty.")
-            return pd.DataFrame(columns=['index', 'name', 'operation', 'result'])
-
+        return pd.DataFrame(columns=['index', 'name', 'operation', 'result'])
 
     def delete(self, index):
         """Delete a specific entry from history."""
-        df = self.load()
-        # Check if the DataFrame is empty
+        df = self.load()  # Load the existing history
         if df.empty:
             print("Error: No records found in history to delete.")
             return
-        # Reset the index to ensure it matches the row positions
-        df = df.reset_index(drop=True)
-        # Check if the provided index is valid
+
+        print("Current history before deletion:")
+        print(df)  # Debug print to see current history
+
         if index < 0 or index >= len(df):
-            print(f"Error: Index {index} is out of bounds. Please provide a valid index.")
-            return  # Exit the method early if the index is invalid
-        # Drop the specified index
-        df = df.drop(index)
-        # Save back to CSV
-        df.to_csv(self.filename, index=False)
+            print(f"Error: Index {index} is out of bounds. Provide a valid index.")
+            return
+        
+        df = df.drop(index)  # Drop the specified index
+        df.to_csv(self.filename, index=False)  # Save back to CSV
+        
         print("Record deleted.")
+        print("Updated history after deletion:")
+        print(df)  # Debug print to see updated history
+
 
     def clear(self):
-            """Clear all entries from history by deleting the file."""
-            if os.path.exists(self.filename):  # Check if the file exists
-                os.remove(self.filename)  # Delete the file
-                print("History file deleted.")
-            else:
-                print("No history file found to delete.")
-                
+        """Clear all history by deleting the file."""
+        if os.path.exists(self.filename):
+            os.remove(self.filename)
+            print("History cleared.")
+        else:
+            print("No history file found.")

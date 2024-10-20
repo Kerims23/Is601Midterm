@@ -72,7 +72,6 @@ class App:
                     index = int(input("Enter the index of the record to delete: "))
                     # Attempt to delete the history entry
                     self.command_handler.delete_history(index)
-                    print("Record deleted.")
                 except ValueError:
                     print("Error: Please enter a valid integer for the index.")
                 except Exception as e:
@@ -81,4 +80,3 @@ class App:
             elif command == "clear":
                 self.command_handler.clear_history()
                 logging.info("History cleared.")
-                print("History cleared.")
