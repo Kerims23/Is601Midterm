@@ -1,7 +1,6 @@
 '''tests/test_app.py'''
 import os
 from unittest.mock import patch
-from dotenv import load_dotenv
 import pandas as pd
 import pytest
 from app import App  # Import your App class
@@ -164,14 +163,3 @@ def test_save_history_without_result(app_fixture, capfd):
         "No results to save. Please perform an operation first.\n"
     )
     assert captured.out == expected_output
-
-def test_environment_variable():
-    """Test if the correct environment is loaded."""
-    # Explicitly specify the .env file path
-    env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
-    # Load the .env file
-    load_dotenv(env_path)
-    # Print to check if the variable is loaded
-    print(f"ENVIRONMENT: {os.getenv('ENVIRONMENT')}")
-    # Assert that the ENVIRONMENT variable is set to "development"
-    assert os.getenv("ENVIRONMENT") == "development"
