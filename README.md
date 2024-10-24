@@ -1,7 +1,7 @@
 # Midterm 
 
 ## Video Demonstration
-Link to video demonstration ().
+Link to video demonstration (https://youtu.be/Cb69KNSChsg).
 
 ## walk through of code.
 - pip install -r requirements.txt
@@ -20,7 +20,7 @@ Link to video demonstration ().
     - **delete** will ask for a index of a record. (can see this in load)
     - **clear** will clear out the full file(by delete the entire csv.)
 - **exit** to close app.
-- run pytest --num_records=10 (or any number you like)
+- run pytest --num_records=10 (or any number above 10)
 - run pytest --pylint --cov to see coverage of testing
 
 
